@@ -58,7 +58,7 @@ export default function AuthPage() {
       if (error) {
         toast({ title: "Sign up failed", description: error.message, variant: "destructive" });
       } else {
-        toast({ title: "Account created!", description: "Welcome to SRM Project Management." });
+        toast({ title: "Account created!", description: "Welcome to ProjectHub! Please verify your email." });
       }
     } else {
       const { error } = await signIn(email, password);
