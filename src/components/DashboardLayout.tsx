@@ -19,7 +19,6 @@ import {
   LogOut,
   BrainCircuit,
   School,
-  Code,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -92,13 +91,13 @@ export default function DashboardLayout({ children, role }: DashboardLayoutProps
       >
         {/* Logo */}
         <div className="flex h-14 items-center gap-3 border-b border-sidebar-border px-4">
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg gradient-primary">
-            <RoleIcon className="h-4 w-4 text-primary-foreground" />
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg gradient-gold">
+            <RoleIcon className="h-4 w-4 text-accent-foreground" />
           </div>
           {!collapsed && (
             <div className="animate-fade-in">
-              <p className="font-heading text-sm font-semibold text-foreground">ProjectHub</p>
-              <p className="text-[10px] text-muted-foreground">{roleLabels[role]}</p>
+              <p className="font-heading text-sm font-semibold text-sidebar-primary">SRM ProjectHub</p>
+              <p className="text-[10px] text-sidebar-foreground">{roleLabels[role]}</p>
             </div>
           )}
         </div>
@@ -115,13 +114,13 @@ export default function DashboardLayout({ children, role }: DashboardLayoutProps
                   "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
                   isActive
                     ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
-                    : "text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-foreground"
+                    : "text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground"
                 )}
               >
-                <item.icon className="h-4 w-4 shrink-0" />
+                <item.icon className={cn("h-4 w-4 shrink-0", isActive && "text-sidebar-primary")} />
                 {!collapsed && <span className="animate-fade-in">{item.label}</span>}
                 {!collapsed && item.label === "Notifications" && (
-                  <Badge className="ml-auto h-5 min-w-5 justify-center rounded-full bg-primary px-1.5 text-[10px] text-primary-foreground">
+                  <Badge className="ml-auto h-5 min-w-5 justify-center rounded-full bg-accent px-1.5 text-[10px] text-accent-foreground">
                     3
                   </Badge>
                 )}
@@ -130,11 +129,11 @@ export default function DashboardLayout({ children, role }: DashboardLayoutProps
           })}
         </nav>
 
-        {/* Collapse toggle */}
+        {/* Bottom */}
         <div className="border-t border-sidebar-border p-2">
           <button
             onClick={async () => { await signOut(); navigate("/"); }}
-            className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-foreground transition-colors"
+            className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground transition-colors"
           >
             <LogOut className="h-4 w-4 shrink-0" />
             {!collapsed && <span>Sign Out</span>}
@@ -150,9 +149,21 @@ export default function DashboardLayout({ children, role }: DashboardLayoutProps
       </aside>
 
       {/* Main */}
-      <div className="flex flex-1 flex-col overflow-hidden">
+      <div className="flex flex-1 flex-col overflow-hidden relative">
+        {/* Watermark */}
+        <div
+          className="pointer-events-none fixed inset-0 z-0 flex items-center justify-center"
+          style={{ opacity: 0.06 }}
+        >
+          <img
+            src="/images/srm-watermark.png"
+            alt=""
+            className="w-[500px] h-[500px] object-contain blur-[1px]"
+          />
+        </div>
+
         {/* Header */}
-        <header className="flex h-14 items-center justify-between border-b border-border px-6">
+        <header className="relative z-10 flex h-14 items-center justify-between border-b border-border bg-card/80 backdrop-blur-sm px-6">
           <div className="relative w-72">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
@@ -173,19 +184,17 @@ export default function DashboardLayout({ children, role }: DashboardLayoutProps
                   {(profile?.full_name || "U").slice(0, 2).toUpperCase()}
                 </div>
               )}
-              {!collapsed && (
-                <div className="text-sm">
-                  <p className="font-medium text-foreground">
-                    {profile?.full_name || "User"}
-                  </p>
-                </div>
-              )}
+              <div className="text-sm">
+                <p className="font-medium text-foreground">
+                  {profile?.full_name || "User"}
+                </p>
+              </div>
             </Link>
           </div>
         </header>
 
         {/* Content */}
-        <main className="flex-1 overflow-y-auto p-6">
+        <main className="relative z-10 flex-1 overflow-y-auto p-6">
           <div className="animate-fade-in">{children}</div>
         </main>
       </div>
