@@ -72,7 +72,7 @@ export default function LandingPage() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg gradient-primary">
               <BrainCircuit className="h-4 w-4 text-primary-foreground" />
             </div>
-            <span className="font-heading text-lg font-bold text-foreground">AcademiQ</span>
+            <span className="font-heading text-lg font-bold text-foreground">SRM Project Management</span>
           </div>
           <div className="flex items-center gap-3">
             <Button variant="ghost" size="sm" asChild>
@@ -173,7 +173,7 @@ export default function LandingPage() {
               Ready to Transform Academic Evaluation?
             </h2>
             <p className="mt-3 text-sm text-primary-foreground/80 max-w-md mx-auto">
-              Join universities already using AcademiQ to streamline project management and evaluation.
+              Join universities already using SRM Project Management to streamline project management and evaluation.
             </p>
             <div className="mt-6 flex items-center justify-center gap-3">
               <Button size="lg" variant="secondary" asChild>
@@ -194,9 +194,9 @@ export default function LandingPage() {
             <div className="h-6 w-6 rounded-md gradient-primary flex items-center justify-center">
               <BrainCircuit className="h-3 w-3 text-primary-foreground" />
             </div>
-            <span className="font-heading font-semibold text-foreground">AcademiQ</span>
+            <span className="font-heading font-semibold text-foreground">SRM Project Management</span>
           </div>
-          <p>© 2026 AcademiQ. AI-Powered Academic Project Management.</p>
+          <p>© 2026 SRM Project Management. AI-Powered Academic Project Management.</p>
         </div>
       </footer>
     </div>

@@ -93,7 +93,7 @@ export default function DashboardLayout({ children, role }: DashboardLayoutProps
           </div>
           {!collapsed && (
             <div className="animate-fade-in">
-              <p className="font-heading text-sm font-semibold text-foreground">AcademiQ</p>
+              <p className="font-heading text-sm font-semibold text-foreground">SRM Project Management</p>
               <p className="text-[10px] text-muted-foreground">{roleLabels[role]}</p>
             </div>
           )}
