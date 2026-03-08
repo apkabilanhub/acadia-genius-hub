@@ -163,12 +163,12 @@ export default function DashboardLayout({ children, role }: DashboardLayoutProps
             </Button>
             <div className="flex items-center gap-2">
               <div className="h-8 w-8 rounded-full gradient-primary flex items-center justify-center text-xs font-bold text-primary-foreground">
-                {role === "student" ? "AP" : role === "faculty" ? "AK" : "SA"}
+                {(profile?.full_name || "U").slice(0, 2).toUpperCase()}
               </div>
               {!collapsed && (
                 <div className="text-sm">
                   <p className="font-medium text-foreground">
-                    {role === "student" ? "Aarav Patel" : role === "faculty" ? "Dr. Ananya Krishnan" : "System Admin"}
+                    {profile?.full_name || "User"}
                   </p>
                 </div>
               )}
