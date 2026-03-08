@@ -7,6 +7,8 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import LandingPage from "./pages/LandingPage";
 import AuthPage from "./pages/AuthPage";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 import StudentDashboard from "./pages/StudentDashboard";
 import StudentSubmit from "./pages/StudentSubmit";
 import StudentRecommendations from "./pages/StudentRecommendations";
