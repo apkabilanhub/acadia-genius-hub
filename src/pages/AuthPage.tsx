@@ -80,6 +80,7 @@ export default function AuthPage() {
     if (error) {
       toast({ title: "OTP Failed", description: error.message, variant: "destructive" });
     } else {
+      setOtpTimestamps((prev) => [...prev.filter((t) => Date.now() - t < OTP_WINDOW_MS), Date.now()]);
       setStep("otp");
       toast({ title: "OTP Sent! 📧", description: `A 6-digit code has been sent to ${email}` });
     }
