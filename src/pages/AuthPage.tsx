@@ -23,13 +23,6 @@ export default function AuthPage() {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  // Redirect if already logged in
-  if (user && userRole) {
-    const path = userRole === "student" ? "/student" : userRole === "faculty" ? "/faculty" : "/admin";
-    navigate(path, { replace: true });
-    return null;
-  }
-
   const emailValidation = useMemo(() => {
     if (!email) return { status: "empty" as const, message: "" };
     if (email.includes("@") && !email.toLowerCase().endsWith("@srmist.edu.in")) {
@@ -42,6 +35,13 @@ export default function AuthPage() {
   }, [email]);
 
   const isEmailBlocked = emailValidation.status === "invalid";
+
+  // Redirect if already logged in
+  if (user && userRole) {
+    const path = userRole === "student" ? "/student" : userRole === "faculty" ? "/faculty" : "/admin";
+    navigate(path, { replace: true });
+    return null;
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
