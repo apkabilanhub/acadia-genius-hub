@@ -241,6 +241,14 @@ export default function AuthPage() {
             Sign in with Google (@srmist.edu.in)
           </Button>
 
+          {!isSignUp && (
+            <div className="text-center">
+              <Link to="/forgot-password" className="text-xs font-medium text-primary hover:underline">
+                Forgot your password?
+              </Link>
+            </div>
+          )}
+
           <p className="text-center text-sm text-muted-foreground">
             {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}
             <button
