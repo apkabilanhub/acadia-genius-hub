@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Slider } from "@/components/ui/slider";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
-  ArrowLeft, Copy, Users, Play, ShieldCheck, BrainCircuit,
+  ArrowLeft, Copy, Users, Play, ShieldCheck, BrainCircuit, FileText,
   CheckCircle2, AlertTriangle, Loader2, Terminal, ChevronRight, Eye,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
