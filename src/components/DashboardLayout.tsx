@@ -35,9 +35,9 @@ const navItems: Record<UserRole, { label: string; icon: React.ElementType; path:
   student: [
     { label: "Dashboard", icon: LayoutDashboard, path: "/student" },
     { label: "My Projects", icon: FileText, path: "/student/projects" },
+    { label: "Scoreboard", icon: Trophy, path: "/student/scoreboard" },
     { label: "Submit Project", icon: Upload, path: "/student/submit" },
     { label: "AI Recommendations", icon: Sparkles, path: "/student/recommendations" },
-    { label: "Notifications", icon: Bell, path: "/student/notifications" },
   ],
   faculty: [
     { label: "Dashboard", icon: LayoutDashboard, path: "/faculty" },

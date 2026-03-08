@@ -98,7 +98,7 @@ export default function LandingPage() {
           </div>
           <h1 className="font-heading text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl max-w-3xl mx-auto leading-[1.1]">
             Evaluate Projects with{" "}
-            <span className="gradient-primary bg-clip-text text-transparent">AI-Powered Scoring</span>
+            <span className="inline bg-gradient-to-r from-primary to-[hsl(215,70%,38%)] bg-clip-text text-transparent [-webkit-background-clip:text]">AI-Powered Scoring</span>
           </h1>
           <p className="mt-6 max-w-xl mx-auto text-base text-muted-foreground leading-relaxed">
             ProjectHub helps SRMIST faculty evaluate student projects using AI — with plagiarism detection, 

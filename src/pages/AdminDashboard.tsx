@@ -11,7 +11,7 @@ import { mockProjects, departmentStats, monthlySubmissions } from "@/lib/mock-da
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { cn } from "@/lib/utils";
 
-const CHART_COLORS = ["hsl(234,89%,64%)", "hsl(260,80%,62%)", "hsl(152,60%,42%)", "hsl(38,92%,55%)", "hsl(205,85%,55%)"];
+const CHART_COLORS = ["hsl(215,80%,48%)", "hsl(215,70%,38%)", "hsl(152,60%,40%)", "hsl(38,92%,50%)", "hsl(205,85%,50%)"];
 
 const topProjects = [...mockProjects]
   .filter((p) => p.innovationScore)
