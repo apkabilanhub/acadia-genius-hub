@@ -15,8 +15,11 @@ import StudentRecommendations from "./pages/StudentRecommendations";
 import StudentProjects from "./pages/StudentProjects";
 import StudentScoreboard from "./pages/StudentScoreboard";
 import FacultyDashboard from "./pages/FacultyDashboard";
+import FacultyClassrooms from "./pages/FacultyClassrooms";
+import FacultyClassroomDetail from "./pages/FacultyClassroomDetail";
 import AdminDashboard from "./pages/AdminDashboard";
 import ProfileSettings from "./pages/ProfileSettings";
+import StudentClassroom from "./pages/StudentClassroom";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
