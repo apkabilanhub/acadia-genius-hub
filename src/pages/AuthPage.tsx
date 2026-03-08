@@ -15,6 +15,9 @@ import type { UserRole } from "@/lib/mock-data";
 
 type AuthStep = "credentials" | "otp";
 
+const OTP_RATE_LIMIT = 3;
+const OTP_WINDOW_MS = 5 * 60 * 1000; // 5 minutes
+
 export default function AuthPage() {
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState("");
