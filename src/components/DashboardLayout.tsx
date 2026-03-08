@@ -37,12 +37,14 @@ const navItems: Record<UserRole, { label: string; icon: React.ElementType; path:
   student: [
     { label: "Dashboard", icon: LayoutDashboard, path: "/student" },
     { label: "My Projects", icon: FileText, path: "/student/projects" },
+    { label: "Classrooms", icon: School, path: "/student/classrooms" },
     { label: "Scoreboard", icon: Trophy, path: "/student/scoreboard" },
     { label: "Submit Project", icon: Upload, path: "/student/submit" },
     { label: "AI Recommendations", icon: Sparkles, path: "/student/recommendations" },
   ],
   faculty: [
     { label: "Dashboard", icon: LayoutDashboard, path: "/faculty" },
+    { label: "Classrooms", icon: School, path: "/faculty/classrooms" },
     { label: "Assigned Projects", icon: ClipboardCheck, path: "/faculty/projects" },
     { label: "Evaluations", icon: FileText, path: "/faculty/evaluations" },
     { label: "AI Analysis", icon: BrainCircuit, path: "/faculty/ai-analysis" },
