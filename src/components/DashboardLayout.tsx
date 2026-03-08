@@ -76,7 +76,6 @@ export default function DashboardLayout({ children, role }: DashboardLayoutProps
   const { profile, signOut } = useAuth();
   const items = navItems[role];
   const RoleIcon = roleIcons[role];
-  const RoleIcon = roleIcons[role];
 
   return (
     <div className="flex h-screen w-full overflow-hidden bg-background">
