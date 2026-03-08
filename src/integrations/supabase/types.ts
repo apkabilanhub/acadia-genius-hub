@@ -14,6 +14,74 @@ export type Database = {
   }
   public: {
     Tables: {
+      classroom_members: {
+        Row: {
+          classroom_id: string
+          id: string
+          joined_at: string
+          student_id: string
+        }
+        Insert: {
+          classroom_id: string
+          id?: string
+          joined_at?: string
+          student_id: string
+        }
+        Update: {
+          classroom_id?: string
+          id?: string
+          joined_at?: string
+          student_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "classroom_members_classroom_id_fkey"
+            columns: ["classroom_id"]
+            isOneToOne: false
+            referencedRelation: "classrooms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      classrooms: {
+        Row: {
+          created_at: string
+          department: string | null
+          description: string | null
+          faculty_id: string
+          id: string
+          is_active: boolean
+          join_code: string
+          name: string
+          semester: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          department?: string | null
+          description?: string | null
+          faculty_id: string
+          id?: string
+          is_active?: boolean
+          join_code: string
+          name: string
+          semester?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          department?: string | null
+          description?: string | null
+          faculty_id?: string
+          id?: string
+          is_active?: boolean
+          join_code?: string
+          name?: string
+          semester?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -46,6 +114,71 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      project_submissions: {
+        Row: {
+          ai_code_copy_score: number | null
+          ai_grade: number | null
+          classroom_id: string
+          created_at: string
+          description: string | null
+          execution_output: string | null
+          faculty_comment: string | null
+          faculty_grade: number | null
+          id: string
+          language: string
+          plagiarism_score: number | null
+          source_code: string
+          status: string
+          student_id: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          ai_code_copy_score?: number | null
+          ai_grade?: number | null
+          classroom_id: string
+          created_at?: string
+          description?: string | null
+          execution_output?: string | null
+          faculty_comment?: string | null
+          faculty_grade?: number | null
+          id?: string
+          language?: string
+          plagiarism_score?: number | null
+          source_code: string
+          status?: string
+          student_id: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          ai_code_copy_score?: number | null
+          ai_grade?: number | null
+          classroom_id?: string
+          created_at?: string
+          description?: string | null
+          execution_output?: string | null
+          faculty_comment?: string | null
+          faculty_grade?: number | null
+          id?: string
+          language?: string
+          plagiarism_score?: number | null
+          source_code?: string
+          status?: string
+          student_id?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_submissions_classroom_id_fkey"
+            columns: ["classroom_id"]
+            isOneToOne: false
+            referencedRelation: "classrooms"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {

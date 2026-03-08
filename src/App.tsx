@@ -15,8 +15,11 @@ import StudentRecommendations from "./pages/StudentRecommendations";
 import StudentProjects from "./pages/StudentProjects";
 import StudentScoreboard from "./pages/StudentScoreboard";
 import FacultyDashboard from "./pages/FacultyDashboard";
+import FacultyClassrooms from "./pages/FacultyClassrooms";
+import FacultyClassroomDetail from "./pages/FacultyClassroomDetail";
 import AdminDashboard from "./pages/AdminDashboard";
 import ProfileSettings from "./pages/ProfileSettings";
+import StudentClassroom from "./pages/StudentClassroom";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,10 +43,13 @@ const App = () => (
             <Route path="/student/submit" element={<ProtectedRoute allowedRoles={["student"]}><StudentSubmit /></ProtectedRoute>} />
             <Route path="/student/scoreboard" element={<ProtectedRoute allowedRoles={["student"]}><StudentScoreboard /></ProtectedRoute>} />
             <Route path="/student/recommendations" element={<ProtectedRoute allowedRoles={["student"]}><StudentRecommendations /></ProtectedRoute>} />
+            <Route path="/student/classrooms" element={<ProtectedRoute allowedRoles={["student"]}><StudentClassroom /></ProtectedRoute>} />
             <Route path="/student/notifications" element={<ProtectedRoute allowedRoles={["student"]}><StudentDashboard /></ProtectedRoute>} />
 
             {/* Faculty routes */}
             <Route path="/faculty" element={<ProtectedRoute allowedRoles={["faculty"]}><FacultyDashboard /></ProtectedRoute>} />
+            <Route path="/faculty/classrooms" element={<ProtectedRoute allowedRoles={["faculty"]}><FacultyClassrooms /></ProtectedRoute>} />
+            <Route path="/faculty/classroom/:id" element={<ProtectedRoute allowedRoles={["faculty"]}><FacultyClassroomDetail /></ProtectedRoute>} />
             <Route path="/faculty/projects" element={<ProtectedRoute allowedRoles={["faculty"]}><FacultyDashboard /></ProtectedRoute>} />
             <Route path="/faculty/evaluations" element={<ProtectedRoute allowedRoles={["faculty"]}><FacultyDashboard /></ProtectedRoute>} />
             <Route path="/faculty/ai-analysis" element={<ProtectedRoute allowedRoles={["faculty"]}><FacultyDashboard /></ProtectedRoute>} />
