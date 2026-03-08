@@ -72,7 +72,10 @@ const roleIcons: Record<UserRole, React.ElementType> = {
 export default function DashboardLayout({ children, role }: DashboardLayoutProps) {
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { profile, signOut } = useAuth();
   const items = navItems[role];
+  const RoleIcon = roleIcons[role];
   const RoleIcon = roleIcons[role];
 
   return (
