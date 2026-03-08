@@ -2,6 +2,7 @@ import { useState } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
 import StatCard from "@/components/StatCard";
 import ProjectCard from "@/components/ProjectCard";
+import PlagiarismCheck from "@/components/PlagiarismCheck";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Slider } from "@/components/ui/slider";
