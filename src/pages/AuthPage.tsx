@@ -56,7 +56,7 @@ export default function AuthPage() {
           <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl gradient-primary">
             <BrainCircuit className="h-6 w-6 text-primary-foreground" />
           </div>
-          <h1 className="font-heading text-2xl font-bold text-foreground">AcademiQ</h1>
+          <h1 className="font-heading text-2xl font-bold text-foreground">SRM Project Management</h1>
           <p className="mt-1 text-sm text-muted-foreground">
             {isSignUp ? "Create your account" : "Sign in to your account"}
           </p>
