@@ -72,7 +72,7 @@ export default function LandingPage() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg gradient-primary">
               <BrainCircuit className="h-4 w-4 text-primary-foreground" />
             </div>
-            <span className="font-heading text-lg font-bold text-foreground">SRM Project Management</span>
+            <span className="font-heading text-lg font-bold text-foreground">ProjectHub</span>
           </div>
           <div className="flex items-center gap-3">
             <Button variant="ghost" size="sm" asChild>
@@ -94,15 +94,15 @@ export default function LandingPage() {
         <div className="container mx-auto px-6 py-24 text-center relative">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-medium text-primary mb-6">
             <Sparkles className="h-3 w-3" />
-            AI-Powered Academic Project Management
+            AI-Powered Project Evaluation for SRM Students
           </div>
           <h1 className="font-heading text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl max-w-3xl mx-auto leading-[1.1]">
-            Evaluate Academic Projects with{" "}
-            <span className="gradient-primary bg-clip-text text-transparent">AI Intelligence</span>
+            Evaluate Projects with{" "}
+            <span className="gradient-primary bg-clip-text text-transparent">AI-Powered Scoring</span>
           </h1>
           <p className="mt-6 max-w-xl mx-auto text-base text-muted-foreground leading-relaxed">
-            A comprehensive SaaS platform for universities to manage project submissions, 
-            automate evaluations with AI, and gain deep insights into academic performance.
+            ProjectHub helps SRMIST faculty evaluate student projects using AI — with plagiarism detection, 
+            automated scoring, and smart recommendations. Exclusively for @srmist.edu.in users.
           </p>
           <div className="mt-8 flex items-center justify-center gap-4">
             <Button size="lg" className="gradient-primary text-primary-foreground shadow-glow" asChild>
@@ -170,10 +170,10 @@ export default function LandingPage() {
         <div className="container mx-auto px-6 text-center">
           <div className="rounded-2xl gradient-primary p-12 max-w-3xl mx-auto shadow-glow">
             <h2 className="font-heading text-2xl font-bold text-primary-foreground sm:text-3xl">
-              Ready to Transform Academic Evaluation?
+              Ready to Transform Project Evaluation?
             </h2>
             <p className="mt-3 text-sm text-primary-foreground/80 max-w-md mx-auto">
-              Join universities already using SRM Project Management to streamline project management and evaluation.
+              Join SRMIST students and faculty already using ProjectHub for smarter project evaluation.
             </p>
             <div className="mt-6 flex items-center justify-center gap-3">
               <Button size="lg" variant="secondary" asChild>
@@ -194,9 +194,9 @@ export default function LandingPage() {
             <div className="h-6 w-6 rounded-md gradient-primary flex items-center justify-center">
               <BrainCircuit className="h-3 w-3 text-primary-foreground" />
             </div>
-            <span className="font-heading font-semibold text-foreground">SRM Project Management</span>
+            <span className="font-heading font-semibold text-foreground">ProjectHub</span>
           </div>
-          <p>© 2026 SRM Project Management. AI-Powered Academic Project Management.</p>
+          <p>© 2026 ProjectHub — AI-Powered Project Evaluation for SRM Students.</p>
         </div>
       </footer>
     </div>
