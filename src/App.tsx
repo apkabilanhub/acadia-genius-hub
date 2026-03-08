@@ -17,6 +17,7 @@ import StudentScoreboard from "./pages/StudentScoreboard";
 import FacultyDashboard from "./pages/FacultyDashboard";
 import FacultyClassrooms from "./pages/FacultyClassrooms";
 import FacultyClassroomDetail from "./pages/FacultyClassroomDetail";
+import FacultyEvaluations from "./pages/FacultyEvaluations";
 import AdminDashboard from "./pages/AdminDashboard";
 import ProfileSettings from "./pages/ProfileSettings";
 import StudentClassroom from "./pages/StudentClassroom";
