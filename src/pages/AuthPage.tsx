@@ -59,6 +59,18 @@ export default function AuthPage() {
       toast({ title: "Access Denied", description: "Only @srmist.edu.in emails allowed.", variant: "destructive" });
       return;
     }
+    // Rate limit: max 3 requests per 5 minutes
+    const now = Date.now();
+    const recentRequests = otpTimestamps.filter((t) => now - t < OTP_WINDOW_MS);
+    if (recentRequests.length >= OTP_RATE_LIMIT) {
+      const waitSec = Math.ceil((OTP_WINDOW_MS - (now - recentRequests[0])) / 1000);
+      toast({
+        title: "Too many requests",
+        description: `Please wait ${Math.ceil(waitSec / 60)} min before requesting another OTP.`,
+        variant: "destructive",
+      });
+      return;
+    }
     setOtpSending(true);
     const { error } = await supabase.auth.signInWithOtp({
       email,
