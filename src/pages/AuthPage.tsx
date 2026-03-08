@@ -153,6 +153,7 @@ export default function AuthPage() {
           onClick={async () => {
             const { error } = await lovable.auth.signInWithOAuth("google", {
               redirect_uri: window.location.origin,
+              extraParams: { hd: "srmist.edu.in" },
             });
             if (error) {
               toast({ title: "Google sign-in failed", description: String(error), variant: "destructive" });
