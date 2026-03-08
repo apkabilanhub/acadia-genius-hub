@@ -158,7 +158,7 @@ export default function DashboardLayout({ children, role }: DashboardLayoutProps
           <img
             src="/images/srm-watermark.png"
             alt=""
-            className="w-[420px] h-[420px] object-contain opacity-[0.06] blur-[1px] select-none"
+            className="w-[450px] h-[450px] object-contain opacity-[0.08] select-none"
             draggable={false}
           />
         </div>
