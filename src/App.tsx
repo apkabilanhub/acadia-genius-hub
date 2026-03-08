@@ -13,6 +13,7 @@ import StudentRecommendations from "./pages/StudentRecommendations";
 import StudentProjects from "./pages/StudentProjects";
 import FacultyDashboard from "./pages/FacultyDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
+import ProfileSettings from "./pages/ProfileSettings";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
