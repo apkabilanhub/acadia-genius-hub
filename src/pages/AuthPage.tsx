@@ -29,8 +29,18 @@ export default function AuthPage() {
     return null;
   }
 
+  const validateSrmEmail = (email: string) => {
+    return email.toLowerCase().endsWith("@srmist.edu.in");
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!validateSrmEmail(email)) {
+      toast({ title: "Invalid email", description: "Only @srmist.edu.in email addresses are allowed.", variant: "destructive" });
+      return;
+    }
+
     setSubmitting(true);
 
     if (isSignUp) {
@@ -97,7 +107,7 @@ export default function AuthPage() {
             <Input
               id="email"
               type="email"
-              placeholder="you@university.edu"
+              placeholder="you@srmist.edu.in"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -143,6 +153,7 @@ export default function AuthPage() {
           onClick={async () => {
             const { error } = await lovable.auth.signInWithOAuth("google", {
               redirect_uri: window.location.origin,
+              extraParams: { hd: "srmist.edu.in" },
             });
             if (error) {
               toast({ title: "Google sign-in failed", description: String(error), variant: "destructive" });
