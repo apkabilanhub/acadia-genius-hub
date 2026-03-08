@@ -15,6 +15,9 @@ import type { UserRole } from "@/lib/mock-data";
 
 type AuthStep = "credentials" | "otp";
 
+const OTP_RATE_LIMIT = 3;
+const OTP_WINDOW_MS = 5 * 60 * 1000; // 5 minutes
+
 export default function AuthPage() {
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState("");
@@ -26,6 +29,7 @@ export default function AuthPage() {
   const [step, setStep] = useState<AuthStep>("credentials");
   const [otpCode, setOtpCode] = useState("");
   const [otpSending, setOtpSending] = useState(false);
+  const [otpTimestamps, setOtpTimestamps] = useState<number[]>([]);
   const { signIn, signUp, user, role: userRole } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -55,6 +59,18 @@ export default function AuthPage() {
       toast({ title: "Access Denied", description: "Only @srmist.edu.in emails allowed.", variant: "destructive" });
       return;
     }
+    // Rate limit: max 3 requests per 5 minutes
+    const now = Date.now();
+    const recentRequests = otpTimestamps.filter((t) => now - t < OTP_WINDOW_MS);
+    if (recentRequests.length >= OTP_RATE_LIMIT) {
+      const waitSec = Math.ceil((OTP_WINDOW_MS - (now - recentRequests[0])) / 1000);
+      toast({
+        title: "Too many requests",
+        description: `Please wait ${Math.ceil(waitSec / 60)} min before requesting another OTP.`,
+        variant: "destructive",
+      });
+      return;
+    }
     setOtpSending(true);
     const { error } = await supabase.auth.signInWithOtp({
       email,
@@ -64,6 +80,7 @@ export default function AuthPage() {
     if (error) {
       toast({ title: "OTP Failed", description: error.message, variant: "destructive" });
     } else {
+      setOtpTimestamps((prev) => [...prev.filter((t) => Date.now() - t < OTP_WINDOW_MS), Date.now()]);
       setStep("otp");
       toast({ title: "OTP Sent! 📧", description: `A 6-digit code has been sent to ${email}` });
     }
