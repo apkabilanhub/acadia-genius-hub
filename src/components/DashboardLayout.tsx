@@ -161,10 +161,14 @@ export default function DashboardLayout({ children, role }: DashboardLayoutProps
               <Bell className="h-4 w-4" />
               <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-destructive" />
             </Button>
-            <div className="flex items-center gap-2">
-              <div className="h-8 w-8 rounded-full gradient-primary flex items-center justify-center text-xs font-bold text-primary-foreground">
-                {(profile?.full_name || "U").slice(0, 2).toUpperCase()}
-              </div>
+            <Link to="/profile" className="flex items-center gap-2 rounded-lg px-2 py-1 hover:bg-muted/50 transition-colors">
+              {profile?.avatar_url ? (
+                <img src={profile.avatar_url} alt="Avatar" className="h-8 w-8 rounded-full object-cover" />
+              ) : (
+                <div className="h-8 w-8 rounded-full gradient-primary flex items-center justify-center text-xs font-bold text-primary-foreground">
+                  {(profile?.full_name || "U").slice(0, 2).toUpperCase()}
+                </div>
+              )}
               {!collapsed && (
                 <div className="text-sm">
                   <p className="font-medium text-foreground">
@@ -172,7 +176,7 @@ export default function DashboardLayout({ children, role }: DashboardLayoutProps
                   </p>
                 </div>
               )}
-            </div>
+            </Link>
           </div>
         </header>
 
