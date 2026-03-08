@@ -90,7 +90,7 @@ export default function LandingPage() {
 
       {/* Hero */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,hsl(234_89%_64%/0.08),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,hsl(215_80%_48%/0.08),transparent_60%)]" />
         <div className="container mx-auto px-6 py-24 text-center relative">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-medium text-primary mb-6">
             <Sparkles className="h-3 w-3" />

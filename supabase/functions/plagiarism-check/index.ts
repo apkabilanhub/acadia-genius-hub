@@ -24,23 +24,32 @@ serve(async (req) => {
         messages: [
           {
             role: "system",
-            content: `You are an academic plagiarism and originality analysis engine for a university project management system. 
-Analyze the submitted project details and provide a comprehensive plagiarism/originality report.
+            content: `You are ProjectHub's advanced academic plagiarism and originality analysis engine for SRMIST (SRM Institute of Science and Technology).
+
+Your job is to deeply analyze student project submissions and provide a thorough plagiarism & originality report. Consider:
+
+1. **Content Similarity**: Check if the project title, abstract, and approach closely mirror existing published projects, papers, or open-source repositories.
+2. **Code Originality**: Evaluate whether the tech stack usage and implementation approach seem original or follow common boilerplate/tutorial patterns.
+3. **Methodology Uniqueness**: Assess if the methodology is a novel application or a direct copy of standard approaches.
+4. **Cross-Reference**: Compare against common university project patterns in the given domain.
+5. **Red Flags**: Look for signs of copied content — generic abstracts, mismatched tech stack with methodology, overly common project ideas without unique angle.
+
+Be fair but thorough. Provide actionable feedback students can use to improve originality.
 You must respond ONLY by calling the provided tool function.`
           },
           {
             role: "user",
-            content: `Analyze this academic project for plagiarism and originality:
+            content: `Perform a comprehensive plagiarism and originality analysis for this SRMIST student project:
 
-Title: ${title}
-Domain: ${domain}
-Methodology: ${methodology}
-Tech Stack: ${(techStack || []).join(", ")}
+**Project Title:** ${title}
+**Domain:** ${domain}
+**Methodology:** ${methodology}
+**Technology Stack:** ${(techStack || []).join(", ")}
 
-Abstract:
+**Abstract:**
 ${abstract}
 
-Provide a detailed plagiarism analysis including similarity percentage, originality assessment, flagged sections, and recommendations.`
+Provide detailed scores for content similarity, code originality, methodology uniqueness, flag specific areas of concern, identify similar existing works, and give actionable recommendations.`
           }
         ],
         tools: [
@@ -48,17 +57,25 @@ Provide a detailed plagiarism analysis including similarity percentage, original
             type: "function",
             function: {
               name: "plagiarism_report",
-              description: "Return a structured plagiarism analysis report",
+              description: "Return a comprehensive structured plagiarism analysis report",
               parameters: {
                 type: "object",
                 properties: {
                   similarity_score: {
                     type: "number",
-                    description: "Overall similarity percentage (0-100)"
+                    description: "Overall content similarity percentage (0-100). Lower is more original."
                   },
                   originality_score: {
                     type: "number",
-                    description: "Originality percentage (0-100)"
+                    description: "Overall originality percentage (0-100). Higher is more original."
+                  },
+                  code_originality_score: {
+                    type: "number",
+                    description: "Code/implementation originality score (0-100). Assesses if tech stack usage is unique vs boilerplate."
+                  },
+                  methodology_originality_score: {
+                    type: "number",
+                    description: "Methodology uniqueness score (0-100). Assesses if the approach is novel."
                   },
                   risk_level: {
                     type: "string",
@@ -67,31 +84,40 @@ Provide a detailed plagiarism analysis including similarity percentage, original
                   },
                   summary: {
                     type: "string",
-                    description: "Brief overall assessment summary (2-3 sentences)"
+                    description: "Concise 2-3 sentence overall assessment"
+                  },
+                  detailed_analysis: {
+                    type: "string",
+                    description: "In-depth 4-6 sentence analysis covering content, code, methodology, and academic integrity aspects"
                   },
                   flagged_areas: {
                     type: "array",
                     items: {
                       type: "object",
                       properties: {
-                        section: { type: "string", description: "Which part of the project" },
-                        concern: { type: "string", description: "What the concern is" },
-                        severity: { type: "string", enum: ["low", "medium", "high"] }
+                        section: { type: "string", description: "Which part (Title, Abstract, Methodology, Tech Stack, etc.)" },
+                        concern: { type: "string", description: "Specific concern explanation" },
+                        severity: { type: "string", enum: ["low", "medium", "high"] },
+                        matched_source: { type: "string", description: "Source it potentially matches, if applicable" }
                       },
                       required: ["section", "concern", "severity"],
                       additionalProperties: false
-                    },
-                    description: "Specific areas flagged for potential plagiarism"
+                    }
                   },
                   strengths: {
                     type: "array",
                     items: { type: "string" },
-                    description: "Original and strong aspects of the project"
+                    description: "Original and strong aspects (3-5 points)"
+                  },
+                  weaknesses: {
+                    type: "array",
+                    items: { type: "string" },
+                    description: "Areas lacking originality or needing improvement (2-4 points)"
                   },
                   recommendations: {
                     type: "array",
                     items: { type: "string" },
-                    description: "Suggestions to improve originality"
+                    description: "Specific actionable suggestions to improve originality (3-5 points)"
                   },
                   similar_projects: {
                     type: "array",
@@ -100,15 +126,19 @@ Provide a detailed plagiarism analysis including similarity percentage, original
                       properties: {
                         title: { type: "string" },
                         similarity: { type: "number" },
-                        source: { type: "string" }
+                        source: { type: "string", description: "Where this similar work exists (e.g. GitHub, IEEE, arXiv, university repo)" },
+                        overlap_type: { type: "string", description: "Type of overlap: concept, implementation, methodology, or content" }
                       },
-                      required: ["title", "similarity", "source"],
+                      required: ["title", "similarity", "source", "overlap_type"],
                       additionalProperties: false
-                    },
-                    description: "Similar existing projects found"
+                    }
                   }
                 },
-                required: ["similarity_score", "originality_score", "risk_level", "summary", "flagged_areas", "strengths", "recommendations", "similar_projects"],
+                required: [
+                  "similarity_score", "originality_score", "code_originality_score",
+                  "methodology_originality_score", "risk_level", "summary", "detailed_analysis",
+                  "flagged_areas", "strengths", "weaknesses", "recommendations", "similar_projects"
+                ],
                 additionalProperties: false
               }
             }
