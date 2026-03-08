@@ -101,8 +101,8 @@ export default function LandingPage() {
             <span className="gradient-primary bg-clip-text text-transparent">AI-Powered Scoring</span>
           </h1>
           <p className="mt-6 max-w-xl mx-auto text-base text-muted-foreground leading-relaxed">
-            A comprehensive SaaS platform for universities to manage project submissions, 
-            automate evaluations with AI, and gain deep insights into academic performance.
+            ProjectHub helps SRMIST faculty evaluate student projects using AI — with plagiarism detection, 
+            automated scoring, and smart recommendations. Exclusively for @srmist.edu.in users.
           </p>
           <div className="mt-8 flex items-center justify-center gap-4">
             <Button size="lg" className="gradient-primary text-primary-foreground shadow-glow" asChild>
