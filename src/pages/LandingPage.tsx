@@ -97,8 +97,8 @@ export default function LandingPage() {
             AI-Powered Project Evaluation for SRM Students
           </div>
           <h1 className="font-heading text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl max-w-3xl mx-auto leading-[1.1]">
-            Evaluate Academic Projects with{" "}
-            <span className="gradient-primary bg-clip-text text-transparent">AI Intelligence</span>
+            Evaluate Projects with{" "}
+            <span className="gradient-primary bg-clip-text text-transparent">AI-Powered Scoring</span>
           </h1>
           <p className="mt-6 max-w-xl mx-auto text-base text-muted-foreground leading-relaxed">
             A comprehensive SaaS platform for universities to manage project submissions, 
