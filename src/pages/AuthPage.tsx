@@ -79,7 +79,7 @@ export default function AuthPage() {
             <GraduationCap className="h-8 w-8 text-primary-foreground" />
           </div>
           <h2 className="font-heading text-3xl font-bold text-primary-foreground leading-tight">
-            SRM Project<br />Management
+            ProjectHub
           </h2>
           <p className="text-sm text-primary-foreground/70 leading-relaxed">
             AI-powered academic project evaluation platform exclusively for SRM Institute of Science & Technology students and faculty.
