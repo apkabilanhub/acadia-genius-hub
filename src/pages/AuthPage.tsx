@@ -106,7 +106,7 @@ export default function AuthPage() {
               {isSignUp ? "Create Account" : "Welcome Back"}
             </h1>
             <p className="mt-1.5 text-sm text-muted-foreground">
-              {isSignUp ? "Join SRM Project Management" : "Sign in to your SRM account"}
+              {isSignUp ? "Join ProjectHub" : "Sign in to ProjectHub"}
             </p>
           </div>
 
