@@ -29,6 +29,7 @@ export default function AuthPage() {
   const [step, setStep] = useState<AuthStep>("credentials");
   const [otpCode, setOtpCode] = useState("");
   const [otpSending, setOtpSending] = useState(false);
+  const [otpTimestamps, setOtpTimestamps] = useState<number[]>([]);
   const { signIn, signUp, user, role: userRole } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
