@@ -94,7 +94,7 @@ export default function LandingPage() {
         <div className="container mx-auto px-6 py-24 text-center relative">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-medium text-primary mb-6">
             <Sparkles className="h-3 w-3" />
-            AI-Powered Academic Project Management
+            AI-Powered Project Evaluation for SRM Students
           </div>
           <h1 className="font-heading text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl max-w-3xl mx-auto leading-[1.1]">
             Evaluate Academic Projects with{" "}
