@@ -150,15 +150,16 @@ export default function DashboardLayout({ children, role }: DashboardLayoutProps
 
       {/* Main */}
       <div className="flex flex-1 flex-col overflow-hidden relative">
-        {/* Watermark */}
+        {/* Watermark - centered in content area */}
         <div
-          className="pointer-events-none fixed inset-0 z-0 flex items-center justify-center"
-          style={{ opacity: 0.06 }}
+          className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center overflow-hidden"
+          aria-hidden="true"
         >
           <img
             src="/images/srm-watermark.png"
             alt=""
-            className="w-[500px] h-[500px] object-contain blur-[1px]"
+            className="w-[420px] h-[420px] object-contain opacity-[0.06] blur-[1px] select-none"
+            draggable={false}
           />
         </div>
 
