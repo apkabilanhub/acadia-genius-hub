@@ -194,9 +194,9 @@ export default function LandingPage() {
             <div className="h-6 w-6 rounded-md gradient-primary flex items-center justify-center">
               <BrainCircuit className="h-3 w-3 text-primary-foreground" />
             </div>
-            <span className="font-heading font-semibold text-foreground">SRM Project Management</span>
+            <span className="font-heading font-semibold text-foreground">ProjectHub</span>
           </div>
-          <p>© 2026 SRM Project Management. AI-Powered Academic Project Management.</p>
+          <p>© 2026 ProjectHub — AI-Powered Project Evaluation for SRM Students.</p>
         </div>
       </footer>
     </div>
