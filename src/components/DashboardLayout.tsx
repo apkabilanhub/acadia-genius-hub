@@ -128,13 +128,13 @@ export default function DashboardLayout({ children, role }: DashboardLayoutProps
 
         {/* Collapse toggle */}
         <div className="border-t border-sidebar-border p-2">
-          <Link
-            to="/"
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-foreground transition-colors"
+          <button
+            onClick={async () => { await signOut(); navigate("/"); }}
+            className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-foreground transition-colors"
           >
             <LogOut className="h-4 w-4 shrink-0" />
-            {!collapsed && <span>Back to Home</span>}
-          </Link>
+            {!collapsed && <span>Sign Out</span>}
+          </button>
           <button
             onClick={() => setCollapsed(!collapsed)}
             className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent/50 transition-colors"
