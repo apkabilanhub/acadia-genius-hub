@@ -2,6 +2,7 @@ import { useState } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
 import StatCard from "@/components/StatCard";
 import ProjectCard from "@/components/ProjectCard";
+import PlagiarismCheck from "@/components/PlagiarismCheck";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Slider } from "@/components/ui/slider";
@@ -158,18 +159,13 @@ export default function FacultyDashboard() {
                 </div>
               </div>
 
-              <div className="rounded-xl border border-border bg-card p-5 space-y-3">
-                <h3 className="font-heading text-sm font-semibold">Plagiarism & Similarity</h3>
-                <div className="flex items-center gap-4">
-                  <div className="h-16 w-16 rounded-full border-4 border-success flex items-center justify-center">
-                    <span className="font-heading text-lg font-bold text-success">8%</span>
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-foreground">Low Similarity Detected</p>
-                    <p className="text-xs text-muted-foreground">Content appears to be largely original</p>
-                  </div>
-                </div>
-              </div>
+              <PlagiarismCheck
+                title={project.title}
+                abstract={project.abstract}
+                techStack={project.techStack}
+                domain={project.domain}
+                methodology={project.methodology}
+              />
             </TabsContent>
 
             <TabsContent value="evaluate" className="mt-4 space-y-4">
