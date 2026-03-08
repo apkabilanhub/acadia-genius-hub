@@ -3,7 +3,10 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "@/contexts/AuthContext";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import LandingPage from "./pages/LandingPage";
+import AuthPage from "./pages/AuthPage";
 import StudentDashboard from "./pages/StudentDashboard";
 import StudentSubmit from "./pages/StudentSubmit";
 import StudentRecommendations from "./pages/StudentRecommendations";
@@ -20,27 +23,37 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/student" element={<StudentDashboard />} />
-          <Route path="/student/projects" element={<StudentProjects />} />
-          <Route path="/student/submit" element={<StudentSubmit />} />
-          <Route path="/student/recommendations" element={<StudentRecommendations />} />
-          <Route path="/student/notifications" element={<StudentDashboard />} />
-          <Route path="/faculty" element={<FacultyDashboard />} />
-          <Route path="/faculty/projects" element={<FacultyDashboard />} />
-          <Route path="/faculty/evaluations" element={<FacultyDashboard />} />
-          <Route path="/faculty/ai-analysis" element={<FacultyDashboard />} />
-          <Route path="/faculty/notifications" element={<FacultyDashboard />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin/users" element={<AdminDashboard />} />
-          <Route path="/admin/departments" element={<AdminDashboard />} />
-          <Route path="/admin/projects" element={<AdminDashboard />} />
-          <Route path="/admin/analytics" element={<AdminDashboard />} />
-          <Route path="/admin/leaderboard" element={<AdminDashboard />} />
-          <Route path="/admin/settings" element={<AdminDashboard />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/auth" element={<AuthPage />} />
+
+            {/* Student routes */}
+            <Route path="/student" element={<ProtectedRoute allowedRoles={["student"]}><StudentDashboard /></ProtectedRoute>} />
+            <Route path="/student/projects" element={<ProtectedRoute allowedRoles={["student"]}><StudentProjects /></ProtectedRoute>} />
+            <Route path="/student/submit" element={<ProtectedRoute allowedRoles={["student"]}><StudentSubmit /></ProtectedRoute>} />
+            <Route path="/student/recommendations" element={<ProtectedRoute allowedRoles={["student"]}><StudentRecommendations /></ProtectedRoute>} />
+            <Route path="/student/notifications" element={<ProtectedRoute allowedRoles={["student"]}><StudentDashboard /></ProtectedRoute>} />
+
+            {/* Faculty routes */}
+            <Route path="/faculty" element={<ProtectedRoute allowedRoles={["faculty"]}><FacultyDashboard /></ProtectedRoute>} />
+            <Route path="/faculty/projects" element={<ProtectedRoute allowedRoles={["faculty"]}><FacultyDashboard /></ProtectedRoute>} />
+            <Route path="/faculty/evaluations" element={<ProtectedRoute allowedRoles={["faculty"]}><FacultyDashboard /></ProtectedRoute>} />
+            <Route path="/faculty/ai-analysis" element={<ProtectedRoute allowedRoles={["faculty"]}><FacultyDashboard /></ProtectedRoute>} />
+            <Route path="/faculty/notifications" element={<ProtectedRoute allowedRoles={["faculty"]}><FacultyDashboard /></ProtectedRoute>} />
+
+            {/* Admin routes */}
+            <Route path="/admin" element={<ProtectedRoute allowedRoles={["admin"]}><AdminDashboard /></ProtectedRoute>} />
+            <Route path="/admin/users" element={<ProtectedRoute allowedRoles={["admin"]}><AdminDashboard /></ProtectedRoute>} />
+            <Route path="/admin/departments" element={<ProtectedRoute allowedRoles={["admin"]}><AdminDashboard /></ProtectedRoute>} />
+            <Route path="/admin/projects" element={<ProtectedRoute allowedRoles={["admin"]}><AdminDashboard /></ProtectedRoute>} />
+            <Route path="/admin/analytics" element={<ProtectedRoute allowedRoles={["admin"]}><AdminDashboard /></ProtectedRoute>} />
+            <Route path="/admin/leaderboard" element={<ProtectedRoute allowedRoles={["admin"]}><AdminDashboard /></ProtectedRoute>} />
+            <Route path="/admin/settings" element={<ProtectedRoute allowedRoles={["admin"]}><AdminDashboard /></ProtectedRoute>} />
+
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

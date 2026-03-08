@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
   FileText,
@@ -23,6 +23,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/contexts/AuthContext";
 import type { UserRole } from "@/lib/mock-data";
 
 interface DashboardLayoutProps {
@@ -71,6 +72,8 @@ const roleIcons: Record<UserRole, React.ElementType> = {
 export default function DashboardLayout({ children, role }: DashboardLayoutProps) {
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { profile, signOut } = useAuth();
   const items = navItems[role];
   const RoleIcon = roleIcons[role];
 
@@ -125,13 +128,13 @@ export default function DashboardLayout({ children, role }: DashboardLayoutProps
 
         {/* Collapse toggle */}
         <div className="border-t border-sidebar-border p-2">
-          <Link
-            to="/"
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-foreground transition-colors"
+          <button
+            onClick={async () => { await signOut(); navigate("/"); }}
+            className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-foreground transition-colors"
           >
             <LogOut className="h-4 w-4 shrink-0" />
-            {!collapsed && <span>Back to Home</span>}
-          </Link>
+            {!collapsed && <span>Sign Out</span>}
+          </button>
           <button
             onClick={() => setCollapsed(!collapsed)}
             className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent/50 transition-colors"
@@ -160,12 +163,12 @@ export default function DashboardLayout({ children, role }: DashboardLayoutProps
             </Button>
             <div className="flex items-center gap-2">
               <div className="h-8 w-8 rounded-full gradient-primary flex items-center justify-center text-xs font-bold text-primary-foreground">
-                {role === "student" ? "AP" : role === "faculty" ? "AK" : "SA"}
+                {(profile?.full_name || "U").slice(0, 2).toUpperCase()}
               </div>
               {!collapsed && (
                 <div className="text-sm">
                   <p className="font-medium text-foreground">
-                    {role === "student" ? "Aarav Patel" : role === "faculty" ? "Dr. Ananya Krishnan" : "System Admin"}
+                    {profile?.full_name || "User"}
                   </p>
                 </div>
               )}
