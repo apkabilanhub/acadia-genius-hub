@@ -170,10 +170,10 @@ export default function LandingPage() {
         <div className="container mx-auto px-6 text-center">
           <div className="rounded-2xl gradient-primary p-12 max-w-3xl mx-auto shadow-glow">
             <h2 className="font-heading text-2xl font-bold text-primary-foreground sm:text-3xl">
-              Ready to Transform Academic Evaluation?
+              Ready to Transform Project Evaluation?
             </h2>
             <p className="mt-3 text-sm text-primary-foreground/80 max-w-md mx-auto">
-              Join universities already using SRM Project Management to streamline project management and evaluation.
+              Join SRMIST students and faculty already using ProjectHub for smarter project evaluation.
             </p>
             <div className="mt-6 flex items-center justify-center gap-3">
               <Button size="lg" variant="secondary" asChild>
