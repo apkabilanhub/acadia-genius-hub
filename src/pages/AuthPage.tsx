@@ -107,7 +107,7 @@ export default function AuthPage() {
             <Input
               id="email"
               type="email"
-              placeholder="you@university.edu"
+              placeholder="you@srmist.edu.in"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
