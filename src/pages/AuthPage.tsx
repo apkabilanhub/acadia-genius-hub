@@ -29,8 +29,18 @@ export default function AuthPage() {
     return null;
   }
 
+  const validateSrmEmail = (email: string) => {
+    return email.toLowerCase().endsWith("@srmist.edu.in");
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!validateSrmEmail(email)) {
+      toast({ title: "Invalid email", description: "Only @srmist.edu.in email addresses are allowed.", variant: "destructive" });
+      return;
+    }
+
     setSubmitting(true);
 
     if (isSignUp) {
