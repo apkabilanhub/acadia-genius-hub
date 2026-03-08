@@ -173,7 +173,7 @@ export default function LandingPage() {
               Ready to Transform Academic Evaluation?
             </h2>
             <p className="mt-3 text-sm text-primary-foreground/80 max-w-md mx-auto">
-              Join universities already using AcademiQ to streamline project management and evaluation.
+              Join universities already using SRM Project Management to streamline project management and evaluation.
             </p>
             <div className="mt-6 flex items-center justify-center gap-3">
               <Button size="lg" variant="secondary" asChild>
