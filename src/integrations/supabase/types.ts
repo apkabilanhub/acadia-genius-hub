@@ -82,6 +82,77 @@ export type Database = {
         }
         Relationships: []
       }
+      documents: {
+        Row: {
+          file_name: string
+          file_size: string | null
+          file_type: string | null
+          file_url: string
+          id: string
+          project_id: string
+          upload_date: string
+          uploaded_by: string
+        }
+        Insert: {
+          file_name: string
+          file_size?: string | null
+          file_type?: string | null
+          file_url: string
+          id?: string
+          project_id: string
+          upload_date?: string
+          uploaded_by: string
+        }
+        Update: {
+          file_name?: string
+          file_size?: string | null
+          file_type?: string | null
+          file_url?: string
+          id?: string
+          project_id?: string
+          upload_date?: string
+          uploaded_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "documents_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "project_submissions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      notifications: {
+        Row: {
+          created_at: string
+          id: string
+          is_read: boolean
+          link: string | null
+          message: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          link?: string | null
+          message: string
+          type?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          link?: string | null
+          message?: string
+          type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -173,6 +244,91 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "project_submissions_classroom_id_fkey"
+            columns: ["classroom_id"]
+            isOneToOne: false
+            referencedRelation: "classrooms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      reports: {
+        Row: {
+          completion_rate: number
+          created_at: string
+          generated_by: string
+          id: string
+          progress_status: string
+          project_id: string
+          summary: string | null
+        }
+        Insert: {
+          completion_rate?: number
+          created_at?: string
+          generated_by: string
+          id?: string
+          progress_status?: string
+          project_id: string
+          summary?: string | null
+        }
+        Update: {
+          completion_rate?: number
+          created_at?: string
+          generated_by?: string
+          id?: string
+          progress_status?: string
+          project_id?: string
+          summary?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reports_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "project_submissions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tasks: {
+        Row: {
+          assigned_by: string
+          assigned_to: string
+          classroom_id: string
+          created_at: string
+          deadline: string | null
+          description: string | null
+          id: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          assigned_by: string
+          assigned_to: string
+          classroom_id: string
+          created_at?: string
+          deadline?: string | null
+          description?: string | null
+          id?: string
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          assigned_by?: string
+          assigned_to?: string
+          classroom_id?: string
+          created_at?: string
+          deadline?: string | null
+          description?: string | null
+          id?: string
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tasks_classroom_id_fkey"
             columns: ["classroom_id"]
             isOneToOne: false
             referencedRelation: "classrooms"
