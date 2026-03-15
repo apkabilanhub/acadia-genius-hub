@@ -9,6 +9,8 @@ import {
   BarChart3,
   Settings,
   Bell,
+  Target,
+  FolderOpen,
   Search,
   ChevronLeft,
   ChevronRight,
