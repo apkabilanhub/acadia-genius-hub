@@ -289,6 +289,38 @@ export type Database = {
           },
         ]
       }
+      task_subtasks: {
+        Row: {
+          created_at: string | null
+          id: string
+          is_completed: boolean | null
+          task_id: string
+          title: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          is_completed?: boolean | null
+          task_id: string
+          title: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          is_completed?: boolean | null
+          task_id?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "task_subtasks_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "tasks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       tasks: {
         Row: {
           assigned_by: string
@@ -298,6 +330,7 @@ export type Database = {
           deadline: string | null
           description: string | null
           id: string
+          priority: string | null
           status: string
           title: string
           updated_at: string
@@ -310,6 +343,7 @@ export type Database = {
           deadline?: string | null
           description?: string | null
           id?: string
+          priority?: string | null
           status?: string
           title: string
           updated_at?: string
@@ -322,6 +356,7 @@ export type Database = {
           deadline?: string | null
           description?: string | null
           id?: string
+          priority?: string | null
           status?: string
           title?: string
           updated_at?: string
