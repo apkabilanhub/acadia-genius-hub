@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -19,12 +18,10 @@ interface Doc {
   file_type: string | null;
   file_size: string | null;
   upload_date: string;
-  project_id: string | null;
-  classroom_id: string | null;
+  project_id: string;
   uploaded_by: string;
   project_title?: string;
   uploader_name?: string;
-  classroom_name?: string;
 }
 
 function getFileIcon(type: string | null) {
@@ -55,8 +52,8 @@ export default function DocumentsPage({ role }: { role: "student" | "faculty" })
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [classrooms, setClassrooms] = useState<{ id: string; name: string }[]>([]);
-  const [selectedClassroom, setSelectedClassroom] = useState("");
+  const [projects, setProjects] = useState<{ id: string; title: string }[]>([]);
+  const [selectedProject, setSelectedProject] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
 
   const fetchDocs = async () => {
@@ -64,29 +61,23 @@ export default function DocumentsPage({ role }: { role: "student" | "faculty" })
     const { data } = await supabase.from("documents").select("*").order("upload_date", { ascending: false });
 
     if (data && data.length > 0) {
-      const projectIds = [...new Set(data.map(d => d.project_id).filter(Boolean))];
+      const projectIds = [...new Set(data.map(d => d.project_id))];
       const uploaderIds = [...new Set(data.map(d => d.uploaded_by))];
-      const classroomIds = [...new Set(data.map(d => d.classroom_id).filter(Boolean))];
 
-      const promises: Promise<any>[] = [
+      const [{ data: projs }, { data: profiles }] = await Promise.all([
+        supabase.from("project_submissions").select("id, title").in("id", projectIds),
         supabase.from("profiles").select("user_id, full_name").in("user_id", uploaderIds),
-      ];
-      if (projectIds.length) promises.push(supabase.from("project_submissions").select("id, title").in("id", projectIds as string[]));
-      if (classroomIds.length) promises.push(supabase.from("classrooms").select("id, name").in("id", classroomIds as string[]));
+      ]);
 
-      const results = await Promise.all(promises);
-      const nameMap: Record<string, string> = {};
-      results[0]?.data?.forEach((p: any) => { nameMap[p.user_id] = p.full_name; });
       const projMap: Record<string, string> = {};
-      if (projectIds.length) results[1]?.data?.forEach((p: any) => { projMap[p.id] = p.title; });
-      const clsMap: Record<string, string> = {};
-      if (classroomIds.length) (results[projectIds.length ? 2 : 1])?.data?.forEach((c: any) => { clsMap[c.id] = c.name; });
+      projs?.forEach(p => { projMap[p.id] = p.title; });
+      const nameMap: Record<string, string> = {};
+      profiles?.forEach(p => { nameMap[p.user_id] = p.full_name; });
 
       setDocs(data.map(d => ({
         ...d,
-        project_title: d.project_id ? projMap[d.project_id] || "Unknown Project" : undefined,
+        project_title: projMap[d.project_id] || "Unknown Project",
         uploader_name: nameMap[d.uploaded_by] || "Unknown",
-        classroom_name: d.classroom_id ? clsMap[d.classroom_id] || "Unknown" : undefined,
       })));
     }
     setLoading(false);
@@ -95,27 +86,17 @@ export default function DocumentsPage({ role }: { role: "student" | "faculty" })
   useEffect(() => {
     fetchDocs();
     if (user) {
-      const query = role === "faculty"
-        ? supabase.from("classrooms").select("id, name").eq("faculty_id", user.id)
-        : supabase.from("classroom_members").select("classroom_id").eq("student_id", user.id);
-
-      query.then(async ({ data }) => {
-        if (!data) return;
-        if (role === "faculty") {
-          setClassrooms(data as any);
-        } else {
-          const ids = (data as any[]).map(d => d.classroom_id);
-          if (ids.length) {
-            const { data: cls } = await supabase.from("classrooms").select("id, name").in("id", ids);
-            if (cls) setClassrooms(cls);
-          }
-        }
+      supabase.from("project_submissions").select("id, title").eq("student_id", user.id).then(({ data }) => {
+        if (data) setProjects(data);
       });
     }
   }, [user]);
 
   const handleUpload = async (files: FileList | null) => {
-    if (!files || !user) return;
+    if (!files || !user || !selectedProject) {
+      if (!selectedProject) toast.error("Please select a project first");
+      return;
+    }
     setUploading(true);
 
     for (const file of Array.from(files)) {
@@ -136,19 +117,18 @@ export default function DocumentsPage({ role }: { role: "student" | "faculty" })
         file_type: file.type || ext || null,
         file_size: formatSize(file.size),
         uploaded_by: user.id,
-        classroom_id: selectedClassroom || null,
+        project_id: selectedProject,
       });
     }
 
     toast.success("Files uploaded successfully!");
     setUploading(false);
     setDialogOpen(false);
-    setSelectedClassroom("");
+    setSelectedProject("");
     fetchDocs();
   };
 
   const handleDelete = async (doc: Doc) => {
-    // Delete from storage
     const path = doc.file_url.split("/documents/")[1];
     if (path) await supabase.storage.from("documents").remove([decodeURIComponent(path)]);
     
@@ -181,10 +161,10 @@ export default function DocumentsPage({ role }: { role: "student" | "faculty" })
                 </DialogTitle>
               </DialogHeader>
               <div className="space-y-4 mt-2">
-                <Select value={selectedClassroom} onValueChange={setSelectedClassroom}>
-                  <SelectTrigger><SelectValue placeholder="Link to classroom (optional)" /></SelectTrigger>
+                <Select value={selectedProject} onValueChange={setSelectedProject}>
+                  <SelectTrigger><SelectValue placeholder="Link to project" /></SelectTrigger>
                   <SelectContent>
-                    {classrooms.map(c => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}
+                    {projects.map(p => <SelectItem key={p.id} value={p.id}>{p.title}</SelectItem>)}
                   </SelectContent>
                 </Select>
                 <div
@@ -217,7 +197,7 @@ export default function DocumentsPage({ role }: { role: "student" | "faculty" })
           <div className="flex items-center gap-2">
             <Link2 className="h-4 w-4 text-primary" />
             <span className="text-xs text-muted-foreground">
-              {[...new Set(docs.map(d => d.classroom_id).filter(Boolean))].length} classrooms
+              {[...new Set(docs.map(d => d.project_id))].length} projects with documents
             </span>
           </div>
         </div>
@@ -250,8 +230,7 @@ export default function DocumentsPage({ role }: { role: "student" | "faculty" })
                   </div>
                   <div>
                     <h3 className="font-heading text-sm font-semibold text-foreground truncate">{doc.file_name}</h3>
-                    {doc.classroom_name && <p className="text-xs text-muted-foreground mt-0.5 truncate">{doc.classroom_name}</p>}
-                    {doc.project_title && <p className="text-xs text-muted-foreground truncate">{doc.project_title}</p>}
+                    {doc.project_title && <p className="text-xs text-muted-foreground mt-0.5 truncate">{doc.project_title}</p>}
                   </div>
                   <div className="flex items-center justify-between text-xs text-muted-foreground">
                     <span>{doc.uploader_name}</span>
