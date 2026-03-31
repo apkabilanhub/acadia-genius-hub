@@ -85,7 +85,7 @@ export default function DashboardLayout({ children, role }: DashboardLayoutProps
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const { profile, signOut } = useAuth();
+  const { profile, signOut, user } = useAuth();
   const items = navItems[role];
   const RoleIcon = roleIcons[role];
 
