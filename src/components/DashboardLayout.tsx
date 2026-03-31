@@ -193,7 +193,8 @@ export default function DashboardLayout({ children, role }: DashboardLayoutProps
               className="pl-10 h-9 bg-muted/50 border-none text-sm"
             />
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
             <Button variant="ghost" size="icon" className="relative">
               <Bell className="h-4 w-4" />
               <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-destructive" />
