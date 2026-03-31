@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import AIChatAssistant from "@/components/AIChatAssistant";
+import ThemeToggle from "@/components/ThemeToggle";
 import {
   LayoutDashboard,
   FileText,
