@@ -21,12 +21,9 @@ export default function ProtectedRoute({ children, allowedRoles }: ProtectedRout
     );
   }
 
-  if (!user) {
-    return <Navigate to="/auth" replace />;
-  }
-
-  if (allowedRoles && role && !allowedRoles.includes(role)) {
-    // Redirect to user's own dashboard
+  // Allow direct access without authentication
+  // If user is logged in, enforce role-based access
+  if (user && allowedRoles && role && !allowedRoles.includes(role)) {
     const dashboardPath = role === "student" ? "/student" : role === "faculty" ? "/faculty" : "/admin";
     return <Navigate to={dashboardPath} replace />;
   }
