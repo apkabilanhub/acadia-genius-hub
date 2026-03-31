@@ -220,6 +220,9 @@ export default function DashboardLayout({ children, role }: DashboardLayoutProps
         <main className="relative z-10 flex-1 overflow-y-auto p-6">
           <div className="animate-fade-in">{children}</div>
         </main>
+
+        {/* AI Chat Assistant */}
+        <AIChatAssistant />
       </div>
     </div>
   );
