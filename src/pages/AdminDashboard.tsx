@@ -39,6 +39,7 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     const fetchAll = async () => {
+      try {
       // Total submissions
       const { count: projCount } = await supabase.from("project_submissions").select("*", { count: "exact", head: true });
       setTotalProjects(projCount || 0);
