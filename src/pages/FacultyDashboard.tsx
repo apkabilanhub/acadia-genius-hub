@@ -61,42 +61,49 @@ export default function FacultyDashboard() {
   const [comment, setComment] = useState("");
 
   useEffect(() => {
-    if (!user) return;
     const fetchData = async () => {
-      // Get faculty's classrooms
-      const { data: classrooms } = await supabase
-        .from("classrooms")
-        .select("id")
-        .eq("faculty_id", user.id);
+      try {
+        if (!user) {
+          setLoading(false);
+          return;
+        }
+        const { data: classrooms } = await supabase
+          .from("classrooms")
+          .select("id")
+          .eq("faculty_id", user.id);
 
-      if (!classrooms || classrooms.length === 0) {
+        if (!classrooms || classrooms.length === 0) {
+          setLoading(false);
+          return;
+        }
+
+        const classroomIds = classrooms.map(c => c.id);
+
+        const { data: subs, error } = await supabase
+          .from("project_submissions")
+          .select("*")
+          .in("classroom_id", classroomIds)
+          .order("created_at", { ascending: false });
+
+        if (error) throw error;
+
+        if (subs && subs.length > 0) {
+          const studentIds = [...new Set(subs.map(s => s.student_id))];
+          const { data: profiles } = await supabase
+            .from("profiles")
+            .select("user_id, full_name")
+            .in("user_id", studentIds);
+
+          const nameMap: Record<string, string> = {};
+          profiles?.forEach(p => { nameMap[p.user_id] = p.full_name; });
+
+          setSubmissions(subs.map(s => ({ ...s, student_name: nameMap[s.student_id] || "Unknown" })));
+        }
+      } catch (err) {
+        console.error("Failed to load faculty data:", err);
+      } finally {
         setLoading(false);
-        return;
       }
-
-      const classroomIds = classrooms.map(c => c.id);
-
-      // Get all submissions for those classrooms
-      const { data: subs } = await supabase
-        .from("project_submissions")
-        .select("*")
-        .in("classroom_id", classroomIds)
-        .order("created_at", { ascending: false });
-
-      if (subs && subs.length > 0) {
-        // Get student names
-        const studentIds = [...new Set(subs.map(s => s.student_id))];
-        const { data: profiles } = await supabase
-          .from("profiles")
-          .select("user_id, full_name")
-          .in("user_id", studentIds);
-
-        const nameMap: Record<string, string> = {};
-        profiles?.forEach(p => { nameMap[p.user_id] = p.full_name; });
-
-        setSubmissions(subs.map(s => ({ ...s, student_name: nameMap[s.student_id] || "Unknown" })));
-      }
-      setLoading(false);
     };
     fetchData();
   }, [user]);

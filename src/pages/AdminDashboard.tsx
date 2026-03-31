@@ -39,6 +39,7 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     const fetchAll = async () => {
+      try {
       // Total submissions
       const { count: projCount } = await supabase.from("project_submissions").select("*", { count: "exact", head: true });
       setTotalProjects(projCount || 0);
@@ -117,7 +118,11 @@ export default function AdminDashboard() {
         })));
       }
 
-      setLoading(false);
+      } catch (err) {
+        console.error("Failed to load admin data:", err);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchAll();
   }, []);

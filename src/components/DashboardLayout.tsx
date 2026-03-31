@@ -85,7 +85,7 @@ export default function DashboardLayout({ children, role }: DashboardLayoutProps
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const { profile, signOut } = useAuth();
+  const { profile, signOut, user } = useAuth();
   const items = navItems[role];
   const RoleIcon = roleIcons[role];
 
@@ -140,13 +140,23 @@ export default function DashboardLayout({ children, role }: DashboardLayoutProps
 
         {/* Bottom */}
         <div className="border-t border-sidebar-border p-2">
-          <button
-            onClick={async () => { await signOut(); navigate("/"); }}
-            className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground transition-colors"
-          >
-            <LogOut className="h-4 w-4 shrink-0" />
-            {!collapsed && <span>Sign Out</span>}
-          </button>
+          {user ? (
+            <button
+              onClick={async () => { await signOut(); navigate("/"); }}
+              className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground transition-colors"
+            >
+              <LogOut className="h-4 w-4 shrink-0" />
+              {!collapsed && <span>Sign Out</span>}
+            </button>
+          ) : (
+            <Link
+              to="/auth"
+              className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground transition-colors"
+            >
+              <LogOut className="h-4 w-4 shrink-0" />
+              {!collapsed && <span>Sign In</span>}
+            </Link>
+          )}
           <button
             onClick={() => setCollapsed(!collapsed)}
             className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent/50 transition-colors"
