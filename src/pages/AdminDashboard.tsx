@@ -118,7 +118,11 @@ export default function AdminDashboard() {
         })));
       }
 
-      setLoading(false);
+      } catch (err) {
+        console.error("Failed to load admin data:", err);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchAll();
   }, []);

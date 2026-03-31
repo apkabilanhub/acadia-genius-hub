@@ -46,17 +46,26 @@ export default function StudentDashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!user) return;
-    const fetch = async () => {
-      const { data } = await supabase
-        .from("project_submissions")
-        .select("*")
-        .eq("student_id", user.id)
-        .order("created_at", { ascending: false });
-      setSubmissions(data || []);
-      setLoading(false);
+    const fetchData = async () => {
+      try {
+        if (!user) {
+          setLoading(false);
+          return;
+        }
+        const { data, error } = await supabase
+          .from("project_submissions")
+          .select("*")
+          .eq("student_id", user.id)
+          .order("created_at", { ascending: false });
+        if (error) throw error;
+        setSubmissions(data || []);
+      } catch (err) {
+        console.error("Failed to load submissions:", err);
+      } finally {
+        setLoading(false);
+      }
     };
-    fetch();
+    fetchData();
   }, [user]);
 
   const total = submissions.length;
